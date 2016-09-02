@@ -49,7 +49,7 @@ class SportsApi::Fetcher::Score::NCF < SportsApi::Fetcher::Score
       situation.is_red_zone = situation_json['isRedZone']
       situation.home_timeouts = situation_json['homeTimeouts']
       situation.away_timeouts = situation_json['awayTimeouts']
-      situation.possession = situation_json['possession']
+      situation.possession = situation_json['possession'].to_i
     end
   end
 
@@ -58,13 +58,13 @@ class SportsApi::Fetcher::Score::NCF < SportsApi::Fetcher::Score
       last_play.type = last_play_json["type"]["text"]
       last_play.text = last_play_json["text"]
       last_play.score_value = last_play_json["scoreValue"]
-      last_play.team = last_play_json["team"]["id"]
+      last_play.team = last_play_json["team"]["id"].to_i
       last_play.drive = last_play_json["drive"]["description"]
       last_play.start_yard_line = last_play_json["start"]["yardLine"]
-      last_play.start_team_side = last_play_json["start"]["team"]["id"]
+      last_play.start_team_side = last_play_json["start"]["team"]["id"].to_i
       last_play.finish_yard_line = last_play_json["end"]["yardLine"]
-      last_play.finish_team_side = last_play_json["end"]["team"]["id"]
-      last_play.stat_yardage = last_play_json["statYardage"]
+      last_play.finish_team_side = last_play_json["end"]["team"]["id"].to_i
+      last_play.stat_yardage = last_play_json["statYardage"].to_i
     end
   end
 
