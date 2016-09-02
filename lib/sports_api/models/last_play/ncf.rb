@@ -1,4 +1,4 @@
-class SportsApi::Models::LastPlay::Ncf
+class SportsApi::Model::LastPlay::Ncf
   attr_accessor :type,
                 :text,
                 :score_value,
