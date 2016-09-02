@@ -37,8 +37,7 @@ class SportsApi::Fetcher::Score::NCF < SportsApi::Fetcher::Score
   end
 
   def generate_situation(situation_json)
-    puts situation_json
-    return [] if situation_json.nil? || situation_json.empty?
+    return nil if situation_json.nil? || situation_json.empty?
 
     SportsApi::Model::Situation::Ncf.new.tap do |situation|
       situation.last_play = generate_last_play(situation_json['lastPlay'])
