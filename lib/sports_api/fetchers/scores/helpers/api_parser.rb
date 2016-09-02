@@ -61,6 +61,7 @@ module SportsApi::Fetcher::Score::ApiParser
 
         event.channel = (((event_json['competitions'].first['broadcasts'] || []).first || {})['names'] || []).join("/")
         event.neutral = event_json['competitions'].first['neutralSite']
+        event.situation = (generate_situation(event_json['situation']) || [])
       end
     end
   end
@@ -118,5 +119,9 @@ module SportsApi::Fetcher::Score::ApiParser
 
       headline.url = "http://espn.go.com/#{league}/#{event.status.pregame? ? 'preview' : 'recap'}?gameId=#{event.gameid}"
     end
+  end
+
+  def generate_situation(situation_json)
+    raise NotImplementedError, "generate_situation should be overridden by each league"
   end
 end
