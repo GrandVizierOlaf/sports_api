@@ -58,9 +58,9 @@ class SportsApi::Fetcher::Score::NCF < SportsApi::Fetcher::Score
       last_play.team = last_play_json["team"]["id"]
       last_play.drive = last_play_json["drive"]["description"]
       last_play.start_yard_line = last_play_json["start"]["yardLine"]
-      last_play.start_time_side = last_play_json["start"]["team"]["id"]
+      last_play.start_team_side = last_play_json["start"]["team"]["id"]
       last_play.finish_yard_line = last_play_json["end"]["yardLine"]
-      last_play.finish_time_side = last_play_json["end"]["team"]["id"]
+      last_play.finish_team_side = last_play_json["end"]["team"]["id"]
       last_play.stat_yardage = last_play_json["statYardage"]
     end
   end
