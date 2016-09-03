@@ -53,6 +53,8 @@ class SportsApi::Fetcher::Score::NCF < SportsApi::Fetcher::Score
   end
 
   def generate_last_play(last_play_json)
+    return nil if last_play_json.nil? || last_play_json.empty?
+    
     SportsApi::Model::LastPlay::Ncf.new.tap do |last_play|
       last_play.type = last_play_json["type"]["text"]
       last_play.text = last_play_json["text"]
