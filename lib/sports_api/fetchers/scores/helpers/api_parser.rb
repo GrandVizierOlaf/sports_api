@@ -94,7 +94,10 @@ module SportsApi::Fetcher::Score::ApiParser
         # NCF Conference API: http://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard/conferences?groups=80%2C81
         # NCB Conference API: Don't know yet
 
-        competitor.record = generate_record((competitor_json['records'] || []).first)
+        competitor.overall_record = generate_record((competitor_json['records'] || [])[0])
+        competitor.home_record = generate_record((competitor_json['records'] || [])[1])
+        competitor.away_record = generate_record((competitor_json['records'] || [])[2])
+        competitor.conference_record = generate_record((competitor_json['records'] || [])[3])
         competitor.rank = (competitor_json['curatedRank'] || {})['current']
       end
     end

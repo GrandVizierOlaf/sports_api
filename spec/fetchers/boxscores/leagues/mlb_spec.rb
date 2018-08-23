@@ -6,8 +6,8 @@ describe SportsApi::Fetcher::Boxscore::MLB do
     let(:json_stub) { StubbedJson.get('postgame.json') }
     let(:html_stub) { StubbedHtml.get('350816114.html') }
     let(:find) { SportsApi::Fetcher::Boxscore::MLB.find(gameid) }
-    before { expect_any_instance_of(SportsApi::Fetcher::Score::MLB).to receive(:get).with('baseball', 'mlb', dates: 20150816).and_return(json_stub) }
-    before { expect_any_instance_of(SportsApi::Fetcher::Boxscore::MLB).to receive(:get).with('mlb/boxscore', gameId: gameid).and_return(html_stub) }
+    before { expect_any_instance_of(SportsApi::Fetcher::Score::MLB).to receive(:scoreboard).with('baseball', 'mlb', dates: 20150816).and_return(json_stub) }
+    before { expect_any_instance_of(SportsApi::Fetcher::Boxscore::MLB).to receive(:scoreboard).with('mlb/boxscore', gameId: gameid).and_return(html_stub) }
 
     context 'event info' do
       let(:score_detail) { find.score_details.first }

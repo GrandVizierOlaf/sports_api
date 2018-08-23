@@ -70,6 +70,6 @@ class SportsApi::Fetcher::Score::NCF < SportsApi::Fetcher::Score
   end
 
   def json
-    @json ||= get('football', 'college-football', week: week, limit: 300, groups: 80)
+    @json ||= scoreboard('football', 'college-football', week: week, limit: 300, groups: 80)
   end
 end

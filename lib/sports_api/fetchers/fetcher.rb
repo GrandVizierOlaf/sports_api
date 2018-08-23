@@ -5,14 +5,22 @@ require 'json'
 module SportsApi::Fetcher
   module ESPN
     module Api
-      def get(league_string, league, params)
-        url = "http://site.api.espn.com/apis/site/v2/sports/#{league_string}/#{league}/scoreboard"
+      def get(league_string, league, page, params)
+        url = "http://site.api.espn.com/apis/site/v2/sports/#{league_string}/#{league}/#{page}"
         response = Http.get(url, params)
         if response.status == 200
           JSON.parse(response.body)
         else
           raise ArgumentError, "invalid URL: #{url}"
         end
+      end
+
+      def scoreboard(league_string, league, params)
+        get(league_string, league, 'scoreboard', params)
+      end
+
+      def teams(league_string, league, params)
+        get(league_string, league, 'teams', params)
       end
     end
 

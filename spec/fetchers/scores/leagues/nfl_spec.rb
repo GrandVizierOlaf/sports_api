@@ -7,7 +7,7 @@ describe SportsApi::Fetcher::Score::NFL do
     describe 'pregame' do
       let(:week) { 1 }
       let(:json_stub) { StubbedJson.get('pregame.json') }
-      before { expect_any_instance_of(SportsApi::Fetcher::Score::NFL).to receive(:get).with('football', 'nfl', week: week, seasontype: 1).and_return(json_stub) }
+      before { expect_any_instance_of(SportsApi::Fetcher::Score::NFL).to receive(:scoreboard).with('football', 'nfl', week: week, seasontype: 1).and_return(json_stub) }
       context 'basic league info' do
         it { expect(find.calendar.size).to eq(27) }
         it { expect(find.name).to eq('National Football League') }
@@ -24,7 +24,7 @@ describe SportsApi::Fetcher::Score::NFL do
     describe 'inprogress' do
       let(:week) { 1 }
       let(:json_stub) { StubbedJson.get('inprogress.json') }
-      before { expect_any_instance_of(SportsApi::Fetcher::Score::NFL).to receive(:get).with('football', 'nfl', week: week, seasontype: 1).and_return(json_stub) }
+      before { expect_any_instance_of(SportsApi::Fetcher::Score::NFL).to receive(:scoreboard).with('football', 'nfl', week: week, seasontype: 1).and_return(json_stub) }
       context 'event info' do
         let(:event) { find.events.detect { |event| event.status.inprogress? } }
         it { expect(event.date).to eq(Date.new(2015, 8, 10)) }
@@ -38,7 +38,7 @@ describe SportsApi::Fetcher::Score::NFL do
       let(:week) { 1 }
       let(:json_stub) { StubbedJson.get('postgame.json') }
       let(:find) { SportsApi::Fetcher::Score::NFL.find_by(1, week) }
-      before { expect_any_instance_of(SportsApi::Fetcher::Score::NFL).to receive(:get).with('football', 'nfl', week: week, seasontype: 1).and_return(json_stub) }
+      before { expect_any_instance_of(SportsApi::Fetcher::Score::NFL).to receive(:scoreboard).with('football', 'nfl', week: week, seasontype: 1).and_return(json_stub) }
       context 'event info' do
         let(:event) { find.events.detect { |event| event.status.final? } }
         let(:thumbnail_url) { 'http://a.espncdn.com/media/motion/2015/0816/dm_150816_nfl_eagles_colts_highlight/dm_150816_nfl_eagles_colts_highlight.jpg' }
