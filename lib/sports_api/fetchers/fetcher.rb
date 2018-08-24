@@ -15,6 +15,10 @@ module SportsApi::Fetcher
         end
       end
 
+      def rankings(league_string, league, params)
+        get(league_string, league, 'rankings', params)
+      end
+
       def scoreboard(league_string, league, params)
         get(league_string, league, 'scoreboard', params)
       end

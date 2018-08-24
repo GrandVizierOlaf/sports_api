@@ -12,8 +12,6 @@ module SportsApi::Fetcher::Team::ApiParser
   def generate_team
     team_json = json
 
-    puts team_json['team']
-
     SportsApi::Model::Team.new.tap do |team|
       team.id = team_json['team']['id']
       team.location = team_json['team']['location']
