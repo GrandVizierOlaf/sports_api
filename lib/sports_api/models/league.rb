@@ -8,7 +8,8 @@ class SportsApi::Model::League
                 :abbreviation,
                 :calendar_type,
                 :calendar,
-                :events
+                :events,
+                :teams
 
   def calendar=(events)
     @calendar ||= events

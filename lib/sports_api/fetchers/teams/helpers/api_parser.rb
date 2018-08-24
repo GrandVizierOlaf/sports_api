@@ -2,38 +2,49 @@ module SportsApi::Fetcher::Team::ApiParser
   attr_accessor :league
 
   def response
-    generate_league
+    if self.team_id
+      generate_team
+    else
+      generate_teams
+    end
   end
 
-  def generate_league
-    SportsApi::Model::League.new.tap do |league|
-      league_json = json['leagues'].first
+  def generate_team
+    team_json = json
 
-      ## Build League
-      league.name = league_json['name']
-      league.abbreviation = league_json['abbreviation']
-      league.calendar_type = league_json['calendarType']
-      league.calendar = generate_calendar(league_json['calendar'])
+    puts team_json['team']
 
-      ## Build Event
-      league.events = generate_events
+    SportsApi::Model::Team.new.tap do |team|
+      team.id = team_json['team']['id']
+      team.location = team_json['team']['location']
+      team.name = team_json['team']['name']
+      team.nickname = team_json['team']['nickname']
+      team.abbreviation = team_json['team']['abbreviation']
+      team.display_name = team_json['team']['displayName']
+      team.short_display_name = team_json['team']['shortDisplayName']
+      team.color = team_json['team']['color']
+      team.alternate_color = team_json['team']['alternateColor'] || '00000'
+      team.is_active = team_json['team']['isActive']
+      team.conference_id = team_json['team']['conferenceId']
     end
   end
 
   def generate_teams
-    json['teams'].map do |event_json|
+    league_json = json['sports'].first['leagues'].first
+
+    league_json['teams'].map do |team_json|
       SportsApi::Model::Team.new.tap do |team|
-        team.id = event_json['id']
-        team.location = event_json['location']
-        team.name = event_json['name']
-        team.nickname = event_json['nickname']
-        team.abbreviation = event_json['abbreviation']
-        team.display_name = event_json['displayName']
-        team.short_display_name = event_json['shortDisplayName']
-        team.color = event_json['color']
-        team.alternate_color = event_json['alternateColor'] || '00000'
-        team.is_active = event_json['isActive']
-        team.conference_id = event_json['conferenceId']
+        team.id = team_json['team']['id']
+        team.location = team_json['team']['location']
+        team.name = team_json['team']['name']
+        team.nickname = team_json['team']['nickname']
+        team.abbreviation = team_json['team']['abbreviation']
+        team.display_name = team_json['team']['displayName']
+        team.short_display_name = team_json['team']['shortDisplayName']
+        team.color = team_json['team']['color']
+        team.alternate_color = team_json['team']['alternateColor'] || '00000'
+        team.is_active = team_json['team']['isActive']
+        team.conference_id = team_json['team']['conferenceId']
       end
     end
   end

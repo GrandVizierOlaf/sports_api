@@ -4,16 +4,16 @@ class SportsApi::Fetcher::Team::NCF < SportsApi::Fetcher::Team
   include SportsApi::Fetcher::ESPN::Api
   include SportsApi::Fetcher::Team::ApiParser
 
-  def initialize(week)
-    self.week = week
+  def initialize(team_id = nil)
+    self.team_id = team_id
   end
 
-  def self.find(id)
-    SportsApi::Fetcher::Team::NCF.find_by(id)
+  def self.find_all
+    new().response
   end
 
-  def response
-    generate_league
+  def self.find_one(team_id)
+    new(team_id).response
   end
 
   def self.league
@@ -27,6 +27,6 @@ class SportsApi::Fetcher::Team::NCF < SportsApi::Fetcher::Team
   private
 
   def json
-    @json ||= teams('football', 'college-football', week: week, limit: 300, groups: 80)
+    @json ||= teams('football', 'college-football', team_id, limit: 300, groups: 80)
   end
 end

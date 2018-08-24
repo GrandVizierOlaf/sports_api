@@ -19,8 +19,12 @@ module SportsApi::Fetcher
         get(league_string, league, 'scoreboard', params)
       end
 
-      def teams(league_string, league, params)
-        get(league_string, league, 'teams', params)
+      def teams(league_string, league, team_id, params)
+        if team_id
+          get(league_string, league, "teams/#{team_id}", params)
+        else
+          get(league_string, league, 'teams', params)
+        end
       end
     end
 

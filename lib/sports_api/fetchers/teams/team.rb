@@ -1,6 +1,5 @@
 class SportsApi::Fetcher::Team
-  attr_accessor :date,
-                :week
+  attr_accessor :team_id
 
   def self.find(league, id)
     case league
